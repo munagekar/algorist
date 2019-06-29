@@ -25,19 +25,23 @@ class QuickUnion:
     def connected(self, x, y):
         if self.add_node(x) or self.add_node(y):
             return False
-        return self._parent(x) == self._parent(y)
+        return self._ancestor(x) == self._ancestor(y)
 
-    def _parent(self, n):
+    def _ancestor(self, n):
         candidate = self._mapping[n]
         while candidate != self._nodelist[candidate]:
+            # Other Compression Alternatives
+            # https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Find
+            # Path Halving Step
+            self._nodelist[candidate] = self._nodelist[self._nodelist[candidate]]
             candidate = self._nodelist[candidate]
         return candidate
 
     def join(self, x, y):
         self.add_node(x)
         self.add_node(y)
-        px = self._parent(x)
-        py = self._parent(y)
+        px = self._ancestor(x)
+        py = self._ancestor(y)
         sx = self._sizelist[px]
         sy = self._sizelist[py]
 

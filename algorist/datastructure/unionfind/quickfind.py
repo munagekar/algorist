@@ -23,16 +23,16 @@ class QuickFind:
     def connected(self, x, y):
         if self.add_node(x) or self.add_node(y):
             return False
-        return self._parent(x) == self._parent(y)
+        return self._ancestor(x) == self._ancestor(y)
 
-    def _parent(self, n):
+    def _ancestor(self, n):
         return self._nodelist[self._mapping[n]]
 
     def join(self, x, y):
         self.add_node(x)
         self.add_node(y)
-        px = self._parent(x)
-        py = self._parent(y)
+        px = self._ancestor(x)
+        py = self._ancestor(y)
 
         for idx, val in enumerate(self._nodelist):
             if val == py:
