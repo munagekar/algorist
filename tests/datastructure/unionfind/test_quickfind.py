@@ -1,8 +1,8 @@
-from algorist.datastructure.quickfind import QuickFind as QF
+from algorist.datastructure.unionfind.quickfind import QuickFind as Qf
 
 
 def test_qf():
-    q = QF()
+    q = Qf()
     q.add_node('abcd')
     q.add_node('wxyz')
     assert q._mapping['abcd'] == 0
