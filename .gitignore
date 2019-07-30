@@ -125,3 +125,6 @@ dmypy.json
 
 # Pycharm
 .idea/
+
+# Pytest Testmon
+.testmondata

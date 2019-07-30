@@ -1,3 +1,6 @@
-.PHONY: test
+.PHONY: test fulltest
 test:
+	pipenv run python3 -m pytest --testmon tests
+
+fulltest:
 	pipenv run python3 -m pytest tests
