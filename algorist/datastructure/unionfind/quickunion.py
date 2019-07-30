@@ -14,6 +14,15 @@ class QuickUnion:
         self._sizelist = list()
 
     def add_node(self, n):
+        """
+        Adds a node to the data structure
+
+        Args:
+            n: Anything that is hashable
+
+        Returns:
+            True if node doesn't already exist else False
+        """
         if n in self._mapping:
             return False
         cur_len = len(self._nodelist)
@@ -23,7 +32,20 @@ class QuickUnion:
         return True
 
     def connected(self, x, y):
-        if self.add_node(x) or self.add_node(y):
+        """
+        Adds the nodes if not already present,
+
+        Args:
+            x: Node
+            y: Node
+
+        Returns:
+            True if connected , False otherwise
+        """
+
+        newly_added = self.add_node(x)
+        newly_added = self.add_node(y) or newly_added
+        if newly_added:
             return False
         return self._ancestor(x) == self._ancestor(y)
 
@@ -38,6 +60,16 @@ class QuickUnion:
         return candidate
 
     def join(self, x, y):
+        """
+        Connects the nodes if not connected, adds if not in the graph
+
+        Args:
+            x: Node
+            y: Node
+
+        Returns:
+            True if connected , False otherwise
+        """
         self.add_node(x)
         self.add_node(y)
         px = self._ancestor(x)

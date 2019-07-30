@@ -1,3 +1,3 @@
 .PHONY: test
 test:
-	python3 -m pytest tests
+	pipenv run python3 -m pytest tests

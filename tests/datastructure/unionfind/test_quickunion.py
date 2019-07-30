@@ -1,4 +1,4 @@
-from algorist.datastructure.unionfind.weightedquickunion import QuickUnion as Qu
+from algorist.datastructure.unionfind.quickunion import QuickUnion as Qu
 
 
 def test_qu():
