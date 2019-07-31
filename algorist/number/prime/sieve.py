@@ -40,12 +40,11 @@ def linear_eratosthenes(high: int) -> List[int]:
 
         for p in primes:
             target = p * i  # Next Composite Number to remove
-            if target > high or lp[target] > p:
+
+            if target > high or lp[i] < p:
                 break
+
             lp[target] = p
 
     return primes
 
-
-if __name__ == '__live_coding__':
-    linear_eratosthenes(23)
