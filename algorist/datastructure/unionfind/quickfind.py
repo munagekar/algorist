@@ -8,7 +8,6 @@ from typing import Any
 
 
 class QuickFind:
-
     def __init__(self):
         self._mapping = dict()
         self._nodelist = list()

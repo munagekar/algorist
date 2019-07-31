@@ -7,7 +7,6 @@ Reference : Chapter 1 Algorithms in C Sedgewick
 
 
 class QuickUnion:
-
     def __init__(self):
         self._mapping = dict()
         self._nodelist = list()

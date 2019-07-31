@@ -3,4 +3,4 @@ test:
 	pipenv run python3 -m pytest --testmon tests
 
 fulltest:
-	pipenv run python3 -m pytest tests
+	pipenv run python3 -m pytest --random-order tests

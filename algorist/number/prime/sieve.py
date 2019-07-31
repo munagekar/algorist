@@ -65,7 +65,7 @@ def seg_sieve(high: int, low: int = 0) -> List[int]:
     """
 
     if low > high:
-        raise ValueError(f'Low={low} must be greater than high={high}')
+        raise ValueError(f"Low={low} must be greater than high={high}")
     # The return list
     primes_in_range = []
 
@@ -93,6 +93,3 @@ def seg_sieve(high: int, low: int = 0) -> List[int]:
         seg_high = min(seg_low + prime_limit - 1, high)
 
     return primes_in_range
-
-
-
