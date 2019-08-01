@@ -21,7 +21,7 @@ class Point:
 
 # Based on the slope
 # Reference: https://www.geeksforgeeks.org/orientation-3-ordered-points/
-def find_orientation(p1: Point, p2: Point, p3: Point):
+def find_orientation(p1: Point, p2: Point, p3: Point) -> Orientation:
     orientation = (p2.y - p1.y) * (p3.x - p2.x) - (p2.x - p1.x) * (p3.y - p2.y)
     if orientation == 0:
         return Orientation.COLINEAR
@@ -30,7 +30,7 @@ def find_orientation(p1: Point, p2: Point, p3: Point):
     return Orientation.ANTI_CLOCKWISE
 
 
-def distance(p1: Point, p2: Point = Point(0, 0)):
+def distance(p1: Point, p2: Point = Point(0, 0)) -> float:
     diff_x = p1.x - p2.x
     diff_y = p1.y - p2.y
     return sqrt(diff_x * diff_x + diff_y * diff_y)
