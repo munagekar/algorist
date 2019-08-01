@@ -28,3 +28,9 @@ def find_orientation(p1: Point, p2: Point, p3: Point):
     if orientation > 0:
         return Orientation.CLOCKWISE
     return Orientation.ANTI_CLOCKWISE
+
+
+def distance(p1: Point, p2: Point = Point(0, 0)):
+    diff_x = p1.x - p2.x
+    diff_y = p1.y - p2.y
+    return sqrt(diff_x * diff_x + diff_y * diff_y)
