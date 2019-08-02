@@ -14,10 +14,8 @@ def test_sieve():
 def test_lsieve():
     got = lsieve(23)
     expected = [2, 3, 5, 7, 11, 13, 17, 19, 23]
-    assert (got == expected)
+    assert got == expected
 
-
-def test_linear_eratosthenes2():
     expected = sieve(1003)
     got = lsieve(1003)
     assert expected == got
@@ -28,7 +26,7 @@ def test_seg_sieve():
     assert sieve(32) == seg_sieve(32)
     assert sieve(1000) == seg_sieve(1000)
     s2000 = sieve(2000)
-    expected = s2000[bisect.bisect_left(s2000, 37):]
+    expected = s2000[bisect.bisect_left(s2000, 37) :]
     got = seg_sieve(2000, 37)
     assert expected == got
 
