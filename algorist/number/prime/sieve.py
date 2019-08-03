@@ -61,7 +61,7 @@ def seg_sieve(high: int, low: int = 0) -> List[int]:
         low: non negative integer
 
     Returns:
-        A list of prime numbers in the range
+        A list of prime numbers in the range [low,high] both ends inclusive
     """
 
     if low > high:

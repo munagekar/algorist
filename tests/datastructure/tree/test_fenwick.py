@@ -1,0 +1,24 @@
+from algorist.datastructure.tree.fenwick import Fenwick
+import random
+import operator
+import itertools
+
+
+def test_fenwick():
+    array = [1, 2, 3, 4]
+    f = Fenwick.from_array(array)
+    assert f._tree == [0, 1, 3, 3, 10]
+    assert f._freq == [0, 1, 2, 3, 4]
+
+    for idx, expected in enumerate(itertools.accumulate(array, operator.add)):
+        assert expected == f.cum_sum(idx)
+
+    assert f.ranged_cum_sum(0, 0) == 1
+    assert f.ranged_cum_sum(0, 3) == 10
+    assert f.ranged_cum_sum(1, 2) == 5
+    assert f.ranged_cum_sum(3, 3) == 4
+    f.update(3, 6)
+    assert f.read(3) == 10
+    assert f.ranged_cum_sum(0, 3) == 16
+    assert f._freq[4] == 10
+    assert f._tree[4] == 16
