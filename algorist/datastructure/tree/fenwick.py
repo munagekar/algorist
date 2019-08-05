@@ -1,4 +1,6 @@
 from typing import List, Union
+from operator import add
+from itertools import accumulate
 
 """
 References: https://www.topcoder.com/community/competitive-programming/tutorials/binary-indexed-trees/
@@ -58,6 +60,18 @@ class Fenwick:
             ranged cumulative sum between [low,high]
         """
         return self.cum_sum(high) - self.cum_sum(low - 1)
+
+    # Complexity O(n)
+    def linear_cum_search(self, cum_freq: float) -> int:
+        """
+        Works for both negative and non negative. O(n)
+        Returns:
+            idx at which cumulative frequency is first obtained else -1
+        """
+        for idx, cum in enumerate(accumulate(self._freq[1:], add)):
+            if cum_freq == cum:
+                return idx
+        return -1
 
 
 # 2x lesser space
