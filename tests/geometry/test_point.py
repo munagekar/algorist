@@ -16,6 +16,11 @@ def test_orientation():
     assert Orientation.COLINEAR == find_orientation(p1, p2, Point(3, 3))
 
 
+def test_repr():
+    p = Point(1, 0)
+    assert repr(p) == "Point(1,0)"
+
+
 def test_distance():
     a = Point(3, 4)
     assert distance(a) == 5
