@@ -19,6 +19,12 @@ def test_fenwick():
     assert f.linear_cum_search(10) == 3
     assert f.linear_cum_search(-5) == -1
 
+    assert f.binary_cum_search(1) == 0
+    assert f.binary_cum_search(3) == 1
+    assert f.binary_cum_search(6) == 2
+    assert f.binary_cum_search(10) == 3
+    assert f.binary_cum_search(-5) == -1
+
     assert f.ranged_cum_sum(0, 0) == 1
     assert f.ranged_cum_sum(0, 3) == 10
     assert f.ranged_cum_sum(1, 2) == 5

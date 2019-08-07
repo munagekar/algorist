@@ -1,6 +1,7 @@
 from typing import List, Union
 from operator import add
 from itertools import accumulate
+from algorist.math.bitops import msbit
 
 """
 References: https://www.topcoder.com/community/competitive-programming/tutorials/binary-indexed-trees/
@@ -52,6 +53,7 @@ class Fenwick:
     def ranged_cum_sum(self, low: int, high: int) -> float:
         """
         Get cumulative sum in a range
+
         Args:
             low: lower limit of range inclusive
             high: higher limit of range inclusive
@@ -65,6 +67,9 @@ class Fenwick:
     def linear_cum_search(self, cum_freq: float) -> int:
         """
         Works for both negative and non negative. O(n)
+
+        Args:
+            cum_freq: Cummulative frequency which is to be found
         Returns:
             idx at which cumulative frequency is first obtained else -1
         """
@@ -72,6 +77,37 @@ class Fenwick:
             if cum_freq == cum:
                 return idx
         return -1
+
+    def binary_cum_search(self, cum_freq: float) -> int:
+        """
+        Works only in non-negative frequency case. O(log n)
+
+        Args:
+            cum_freq: cummulative frequency to be found
+
+        Returns:
+            the index at which the cumulative frequency is obtained else -1
+        """
+
+        bitmask = msbit(self._max_idx)
+        idx = 0
+
+        while bitmask != 0:
+            mid = idx + bitmask
+            bitmask >>= 1
+            # Overflow
+            if mid > self._max_idx:
+                continue
+            if self._tree[mid] == cum_freq:
+                cum_freq = 0
+                idx = mid
+                break
+            if self._tree[mid] < cum_freq:
+                idx = mid
+                cum_freq -= self._tree[mid]
+        if cum_freq != 0 or idx == 0:
+            return -1
+        return idx - 1
 
 
 # 2x lesser space
