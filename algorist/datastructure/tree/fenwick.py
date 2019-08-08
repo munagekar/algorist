@@ -1,6 +1,7 @@
-from typing import List, Union
-from operator import add
 from itertools import accumulate
+from operator import add
+from typing import List
+
 from algorist.math.bitops import msbit
 
 """
@@ -122,7 +123,7 @@ Memory: 2 * n
 
 class FenwickLowMemory:
     def __init__(self, max_idx: int):
-        self._tree = [max_idx] + [0] * (max_idx)
+        self._tree = [max_idx] + [0] * max_idx
 
     def cum_sum(self, idx: int) -> float:
         idx += 1
@@ -162,3 +163,28 @@ class FenwickLowMemory:
             sum_ -= self._tree[y]
             y -= y & -y
         return sum_
+
+    def binary_cum_search(self, cum_freq):
+        bitmask = msbit(self._tree[0])
+        idx = 0
+        while bitmask > 0:
+            mid = idx + bitmask
+            bitmask >>= 1
+            if mid > self._tree[0]:
+                continue  # avoid overflow
+            if cum_freq == self._tree[mid]:
+                idx = mid
+                cum_freq = 0
+            elif cum_freq > self._tree[mid]:
+                cum_freq -= self._tree[mid]
+                idx += mid
+        if cum_freq != 0 or idx == 0:
+            return -1
+        return idx - 1
+
+    # 0(n)log(n) Super Slow
+    def linear_cum_search(self, cum_freq):
+        for i in range(self._tree[0]):
+            if self.cum_sum(i) == cum_freq:
+                return i
+        return -1
