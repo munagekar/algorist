@@ -17,9 +17,9 @@ def test_heap():
 def test_min_heap():
     arr = [2, 4, 5]
     h = MinHeap.build_heap(arr)
-    assert h._heap == [len(arr), -2, -4, -5]
+    assert h._heap == [len(arr), 2, 4, 5]
     h.insert(10)
-    assert h._heap == [len(arr) + 1, -2, -4, -5, -10]
+    assert h._heap == [len(arr) + 1, 2, 4, 5, 10]
     assert h.top() == 2
     assert h.pop() == 2
-    assert h._heap == [len(arr), -4, -10, -5]
+    assert h._heap == [len(arr), 4, 10, 5]

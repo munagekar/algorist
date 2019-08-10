@@ -1,30 +1,36 @@
 # Binary Heap
-from typing import List
+from typing import List, Callable, Any
+from algorist.helper import identity
+
+
+def negate_func(func):
+    return lambda x: -func(x)
 
 
 # Reference : https://prgwonders.blogspot.com/2015/12/max-heap-in-python.html
 class Heap:
-    def __init__(self):
+    def __init__(self, key: Callable[[Any], Any] = identity):
         """
         Max Heap Datastructure
         """
         self._heap = [0]
+        self._key = key
 
     @classmethod
-    def build_heap(cls, arr: List[float]):
-        h = Heap()
+    def build_heap(cls, arr: List[Any], key: Callable[[Any], Any] = identity):
+        h = Heap(key)
         n = len(arr)
         h._heap = [n] + arr
         for i in range(n // 2, 0, -1):
             h._heapify(i)
         return h
 
-    def top(self) -> float:
+    def top(self) -> Any:
         if self._heap[0] < 1:
             raise IndexError("EmptyHeap. No value at the top")
         return self._heap[1]
 
-    def pop(self) -> float:
+    def pop(self) -> Any:
         if self._heap[0] < 1:
             raise IndexError("Empty Heap. No values to pop")
         top = self._heap[1]
@@ -34,17 +40,18 @@ class Heap:
         self._heap.pop()
         return top
 
-    def insert(self, num: float):
+    def insert(self, value: Any):
         self._heap[0] += 1
+        # Just Extend the list
         self._heap.append(None)
         i = self._heap[0]
         p = i // 2
         # Bubble up
-        while p >= 1 and self._heap[p] < num:
+        while p >= 1 and self._key(self._heap[p]) < self._key(value):
             self._heap[i] = self._heap[p]
             i >>= 1
             p >>= 1
-        self._heap[i] = num
+        self._heap[i] = value
 
     def _heapify(self, i: int):
         if i == 0:
@@ -56,9 +63,9 @@ class Heap:
         largest = i
         if left_child <= n:
             if right_child <= n:
-                largest = max(i, left_child, right_child, key=lambda x: self._heap[x])
+                largest = max(i, left_child, right_child, key=lambda x: self._key(self._heap[x]))
             else:
-                largest = max(i, left_child, key=lambda x: self._heap[x])
+                largest = max(i, left_child, key=lambda x: self._key(self._heap[x]))
 
         if largest != i:
             self._heap[i], self._heap[largest] = self._heap[largest], self._heap[i]
@@ -66,20 +73,13 @@ class Heap:
 
 
 class MinHeap(Heap):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, key: Callable[[Any], Any] = identity):
+        key = negate_func(key)
+        super().__init__(key)
 
     @classmethod
-    def build_heap(cls, arr: List[float]):
-        h = MinHeap()
-        h._heap = super().build_heap([-x for x in arr])._heap
+    def build_heap(cls, arr: List[float], key=identity):
+        h = MinHeap(key)
+        key = negate_func(key)
+        h._heap = super().build_heap(arr, key)._heap
         return h
-
-    def top(self) -> float:
-        return -super().top()
-
-    def pop(self) -> float:
-        return -super().pop()
-
-    def insert(self, num: float):
-        super().insert(-num)
