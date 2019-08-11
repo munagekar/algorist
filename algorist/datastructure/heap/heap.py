@@ -1,12 +1,7 @@
 # Binary Heap
 from typing import List, Callable, Any
 
-from algorist.helper import identity
-
-
-def negate_func(func):
-    return lambda x: -func(x)
-
+from algorist.helper import identity, negate_func, stablize_func
 
 # Reference : https://prgwonders.blogspot.com/2015/12/max-heap-in-python.html
 class Heap:
@@ -32,9 +27,7 @@ class Heap:
         return self._heap[1]
 
     def pop(self) -> Any:
-        if self._heap[0] < 1:
-            raise IndexError("Empty Heap. No values to pop")
-        top = self._heap[1]
+        top = self.top()
         self._heap[1] = self._heap[self._heap[0]]
         self._heap[0] -= 1
         self._heapify(1)
@@ -84,3 +77,9 @@ class MinHeap(Heap):
         key = negate_func(key)
         h._heap = super().build_heap(arr, key)._heap
         return h
+
+
+# class StableHeap(Heap):
+#     def __init__(self, key: Callable[[Any], Any] = identity):
+#         key = stablize_func(key)
+#         super().__init__(key)
