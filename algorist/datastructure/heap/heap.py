@@ -1,7 +1,8 @@
 # Binary Heap
 from typing import List, Callable, Any
 
-from algorist.helper import identity, negate_func, stablize_func
+from algorist.helper import identity, negate_func
+
 
 # Reference : https://prgwonders.blogspot.com/2015/12/max-heap-in-python.html
 class Heap:
@@ -10,6 +11,7 @@ class Heap:
         Max Heap Datastructure
         """
         self._heap = [0]
+
         self._key = key
 
     @classmethod
@@ -66,6 +68,10 @@ class Heap:
             self._heapify(largest)
 
 
+# Alias
+MaxHeap = Heap
+
+
 class MinHeap(Heap):
     def __init__(self, key: Callable[[Any], Any] = identity):
         key = negate_func(key)
@@ -77,9 +83,3 @@ class MinHeap(Heap):
         key = negate_func(key)
         h._heap = super().build_heap(arr, key)._heap
         return h
-
-
-# class StableHeap(Heap):
-#     def __init__(self, key: Callable[[Any], Any] = identity):
-#         key = stablize_func(key)
-#         super().__init__(key)
