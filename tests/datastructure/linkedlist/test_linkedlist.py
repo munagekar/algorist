@@ -18,3 +18,8 @@ def test_linkedlist():
     li.push(2)
     assert list(li) == [2, 1]
     assert len(li) == 2
+    li.reverse()
+    assert list(li) == [1, 2]
+    li.push(3)
+    li.reverse()
+    assert list(li) == [2, 1, 3]

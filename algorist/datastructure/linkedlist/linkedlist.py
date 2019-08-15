@@ -44,6 +44,24 @@ class LinkedList:
             self.head = self.head.next
             return data
 
+    def reverse(self):
+        # First Pointer
+        p1 = self.head
+        if p1 is None:
+            return
+        # Second Pointer
+        p2 = p1.next
+        if p2 is None:
+            return
+        # First None will not have a next Pointer
+        p1.next = None
+        while p2 is not None:
+            temp = p2.next
+            p2.next = p1
+            p1 = p2
+            p2 = temp
+        self.head = p1
+
     def __len__(self):
         return self._len
 
