@@ -53,7 +53,7 @@ class LinkedList:
         p2 = p1.next
         if p2 is None:
             return
-        # First None will not have a next Pointer
+        # First Node will not have a next Pointer
         p1.next = None
         while p2 is not None:
             temp = p2.next
