@@ -8,8 +8,3 @@ def extended_euclidean(a, b):
         x = y1
         y = x1 - y1 * (a // b)
         return g, x, y
-
-
-# extended_euclidean(10, 3)
-# extended_euclidean(20, 25)
-extended_euclidean(25, 20)
