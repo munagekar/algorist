@@ -1,4 +1,4 @@
-from algorist.datastructure.array.sort import heapsort
+from algorist.datastructure.array.sort import heapsort, is_sorted, pancakesort
 
 
 def test_heapsort():
@@ -9,3 +9,23 @@ def test_heapsort():
         assert sorted(arr, reverse=True) == heapsort(arr, reverse=True)
         assert sorted(arr) == heapsort(arr)
         assert sorted(arr, reverse=True) == heapsort(arr, key=lambda x: -x)
+
+
+def test_is_sorted():
+    assert is_sorted([1, 2, 3, 4])
+    assert not is_sorted([1, 3, 5, 4])
+    assert is_sorted([1, 2, 3, 4, 5, 20])
+
+
+def test_pancakesort():
+    arr = [1, 3, 2]
+    pancakesort(arr)
+    assert arr == [1, 2, 3]
+
+    arr = [1, 2, 2]
+    pancakesort(arr)
+    assert arr == [1, 2, 2]
+
+    arr = [3, 2, 1]
+    pancakesort(arr)
+    assert arr == [1, 2, 3]
