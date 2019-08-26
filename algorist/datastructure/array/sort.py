@@ -59,3 +59,23 @@ def pancakesort(arr: List[float]):
         # Second Flip to bring max at last position
         _flip(arr, size - 1)
         size -= 1
+    return arr
+
+
+def insertionsort(arr: List[float]):
+    """
+    Sort an array inplace
+    Args:
+        arr:
+
+    Returns:
+
+    """
+    for j in range(1, len(arr)):
+        temp = arr[j]
+        i = j
+        while i >= 1 and temp < arr[i - 1]:
+            arr[i] = arr[i - 1]
+            i -= 1
+        arr[i] = temp
+    return arr
