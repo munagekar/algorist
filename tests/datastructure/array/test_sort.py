@@ -1,4 +1,4 @@
-from algorist.datastructure.array.sort import heapsort, is_sorted, pancakesort, insertionsort
+from algorist.datastructure.array.sort import heapsort, is_sorted, pancakesort, insertionsort, mergesort
 
 
 def test_heapsort():
@@ -36,3 +36,10 @@ def test_insertionsort():
     assert is_sorted(insertionsort([1, 2, 3, 5, 4]))
     assert is_sorted(insertionsort([5, 4, 3, 2, 1]))
     assert is_sorted(insertionsort([1, 5, 4, 2, 3]))
+
+
+def test_mergesort():
+    assert is_sorted(mergesort([1, 2, 3, 4, 5]))
+    assert is_sorted(mergesort([1, 2, 3, 5, 4]))
+    assert is_sorted(mergesort([5, 4, 3, 2, 1]))
+    assert is_sorted(mergesort([1, 5, 4, 2, 3]))
