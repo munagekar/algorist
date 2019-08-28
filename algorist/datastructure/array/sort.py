@@ -122,3 +122,13 @@ def mergesort(arr: List[float]) -> List[float]:
             _merge(arr, left, mid, right)
         size *= 2
     return arr
+
+
+def bubblesort(arr: List[float]) -> List[float]:
+    n = len(arr)
+    for i in range(0, n - 1):
+        for j in range(n - i - 1):
+            if arr[j + 1] < arr[j]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+    return arr

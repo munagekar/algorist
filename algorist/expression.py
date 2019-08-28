@@ -1,12 +1,12 @@
-from typing import List, Union
+from typing import List, Union, Deque
 from collections import deque
 from operator import add, truediv, mul, sub
 
 Precendence = {"+": 0, "-": 0, "/": 1, "*": 1, "^": 2}
 
 
-def eval_postfix(expr=List[Union[float, str]]):
-    stack = deque()
+def eval_postfix(expr=List[Union[float, str]]) -> float:
+    stack: Deque[float] = deque()
     for val in expr:
         if isinstance(val, (int, float)):
             stack.append(val)
@@ -21,15 +21,15 @@ def eval_postfix(expr=List[Union[float, str]]):
                 op = truediv
             else:
                 raise ValueError(f"Operator={val} must be one of [+,-,*,/]")
-            b = stack.pop()
-            a = stack.pop()
+            b: float = stack.pop()
+            a: float = stack.pop()
             stack.append(op(a, b))
     return stack.pop()
 
 
-def infix_to_postfix(expr=List[Union[float, str]]):
-    output = []
-    stack = deque()
+def infix_to_postfix(expr=List[Union[float, str]]) -> List[Union[float, str]]:
+    output: List[Union[float, str]] = []
+    stack: Deque[str] = deque()
     for val in expr:
         if isinstance(val, (float, int)):
             output.append(val)
