@@ -24,3 +24,23 @@ def kadane(arr: List[float]) -> Tuple[float, int, int]:
             max_r = r
             max_l = l
     return max_sum, max_l, max_r
+
+
+def product_kadane(arr: List[float]) -> float:
+    neg = arr[0]
+    pos = arr[0]
+    target = arr[0]
+
+    for val in arr[1:]:
+        if val >= 0:
+            pos *= val
+            pos = max(pos, val)
+            neg *= val
+        if val < 0:
+            pos, neg = neg, pos
+            pos *= val
+            neg *= val
+            neg = min(neg, val)
+        target = max(pos, target)
+
+    return target
