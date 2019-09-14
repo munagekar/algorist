@@ -1,5 +1,5 @@
 from math import inf
-from typing import List, Any, Callable
+from typing import List, Any, Callable, Optional
 
 from algorist.datastructure.heap.heap import MaxHeap, MinHeap
 from algorist.helper import identity
@@ -131,4 +131,39 @@ def bubblesort(arr: List[float]) -> List[float]:
             if arr[j + 1] < arr[j]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
+    return arr
+
+
+def partition(arr: List[float], start: int, end: int):
+    pivot = arr[start]
+    split = start + 1
+    for i in range(start + 1, end + 1):
+        if arr[i] < pivot:
+            arr[split], arr[i] = arr[i], arr[split]
+            split += 1
+    split -= 1
+    arr[split], arr[start] = arr[start], arr[split]
+    return split
+
+
+def quicksort(arr: List[float], start: Optional[int] = None, end: Optional[int] = None):
+    """
+    Sorts an array inplace
+    Args:
+        arr: Array to be started
+        start: Start position for subarray to be sorted
+        end: End position for subarray to be sorted
+
+    Returns:
+        Sorted array
+    """
+    if start is None:
+        start = 0
+    if end is None:
+        end = len(arr) - 1
+
+    if end > start:
+        p = partition(arr, start, end)
+        quicksort(arr, start, p - 1)
+        quicksort(arr, p + 1, end)
     return arr
