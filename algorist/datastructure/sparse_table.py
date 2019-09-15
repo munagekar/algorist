@@ -48,7 +48,6 @@ class RSQ(SparseTable):
             arr: List of values
         """
         super().__init__(arr, func2=add)
-        print(self._table)
 
     def query(self, low, high) -> float:
         val = 0
