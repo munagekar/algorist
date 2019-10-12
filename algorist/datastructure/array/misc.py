@@ -44,4 +44,3 @@ def product_kadane(arr: List[float]) -> float:
         target = max(pos, target)
 
     return target
-
