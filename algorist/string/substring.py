@@ -44,3 +44,48 @@ def substring_z(text: str, pat: str) -> List[int]:
     l = len(pat)
     adjust = len(pat) + 1
     return [idx - adjust for idx, val in enumerate(z) if val == l]
+
+
+def cal_prefix_arr(pat: str) -> List[int]:
+    l = len(pat)
+    arr = [0] * l
+
+    j = 0
+    i = 1
+
+    while i < l:
+        if pat[j] == pat[i]:
+            arr[i] = j + 1
+            j += 1
+            i += 1
+        else:
+            if j == 0:
+                arr[i] = 0
+                i += 1
+            else:
+                j = arr[j - 1]
+
+    return arr
+
+
+def substring_kmp(text: str, pat: str) -> List[int]:
+    i = 0
+    j = 0
+    n = len(text)
+    m = len(pat)
+    prefix = cal_prefix_arr(pat)
+    idxs = []
+    while i < n:
+        if text[i] == pat[j]:
+            i += 1
+            j += 1
+            if j == m:
+                idxs.append(i - j)
+                j = prefix[j - 1]
+        else:
+            if j == 0:
+                i += 1
+            else:
+                j = prefix[j - 1]
+
+    return idxs
