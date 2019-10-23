@@ -4,7 +4,7 @@ from typing import List
 # Reference : https://www.youtube.com/watch?v=CpZh4eF8QBw
 def cal_z(text) -> List[int]:
     """
-    Computes Z array, ie length of longest substring begining at each index which is prefix of the string
+    Computes Z array, ie length of longest substring beginning at each index which is prefix of the string
     Returns:
         List of length(text) with z values
     """
