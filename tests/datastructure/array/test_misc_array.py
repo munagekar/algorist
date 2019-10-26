@@ -1,6 +1,6 @@
 from typing import List
 import random
-from algorist.datastructure.array.misc import kadane, product_kadane, two_array_median
+from algorist.datastructure.array.misc import kadane, product_kadane, two_array_median_linear, two_array_median
 
 
 def test_kadane():
@@ -61,7 +61,23 @@ def test_product_kadane2():
         assert product_kadane(li) == product_kadane_dp(li)
 
 
-def test_two_array_median_odd():
+def test_two_array_median():
+    arr1 = [1, 2, 3]
+    arr2 = [4, 5, 6, 7]
+    assert two_array_median_linear(arr1, arr2) == 4
+    arr1 = [4]
+    arr2 = [5, 6]
+    assert two_array_median_linear(arr1, arr2) == 5
+    arr1 = [4]
+    arr2 = [2, 5]
+    assert two_array_median_linear(arr1, arr2) == 4
+    arr1 = [1, 4]
+    arr2 = [2, 5]
+    assert two_array_median_linear(arr1, arr2) == 3
+    arr1 = [1, 4, 7, 9, 10, 13]
+    arr2 = [2, 5]
+    assert two_array_median_linear(arr1, arr2) == 6
+
     arr1 = [1, 2, 3]
     arr2 = [4, 5, 6, 7]
     assert two_array_median(arr1, arr2) == 4
@@ -70,10 +86,10 @@ def test_two_array_median_odd():
     assert two_array_median(arr1, arr2) == 5
     arr1 = [4]
     arr2 = [2, 5]
-    assert two_array_median(arr1, arr2) == 4
+    assert two_array_median_linear(arr1, arr2) == 4
     arr1 = [1, 4]
     arr2 = [2, 5]
-    assert two_array_median(arr1, arr2) == 3
+    assert two_array_median_linear(arr1, arr2) == 3
     arr1 = [1, 4, 7, 9, 10, 13]
     arr2 = [2, 5]
-    assert two_array_median(arr1, arr2) == 6
+    assert two_array_median_linear(arr1, arr2) == 6
