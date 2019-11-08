@@ -1,6 +1,5 @@
 .PHONY: test fulltest clean
 test:
-	# Some Issue with testmon  use fulltest instead
 	pipenv run python3 -m pytest --testmon tests
 
 fulltest:

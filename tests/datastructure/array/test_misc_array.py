@@ -25,7 +25,6 @@ def product_kadane_dp(arr: List[float]) -> float:
     for diff in range(1, n):
         for left in range(0, n - diff):
             table[diff][left] = table[diff - 1][left] * arr[left + diff]
-    print(table)
     return max(max(table[i]) for i in range(n))
 
 
