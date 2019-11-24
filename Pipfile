@@ -7,10 +7,10 @@ verify_ssl = true
 pytest = "*"
 pytest-testmon = "*"
 pytest-random-order = "*"
-black = "==19.10.b0"
+black = "*"
 
 [requires]
 python_version = "3.7"
 
 [pipenv]
-allow_prereleases = false
+allow_prereleases = true
