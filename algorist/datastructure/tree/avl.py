@@ -2,7 +2,7 @@
 # Youtube : https://www.youtube.com/watch?v=rbg7Qf8GkQ4
 
 
-from typing import Union
+from typing import Union, Optional, List
 
 
 class Node:
@@ -48,10 +48,12 @@ def left_rotate(root: Node) -> Node:
     return new_root
 
 
-# TODO : Add deletion code
 class AVLTree:
-    def __init__(self):
+    def __init__(self, data: Optional[List[float]] = None):
         self.root = None
+        if data:
+            for d in data:
+                self.insert(d)
 
     def insert(self, data: float):
         if self.root is None:
@@ -93,19 +95,19 @@ class AVLTree:
         self._pre_order(cur.left, cur, "left")
         self._pre_order(cur.right, cur, "right")
 
-    def _insert(self, data: float, root: Node) -> Node:
+    def _insert(self, key: float, root: Node) -> Node:
 
         if root is None:
-            return Node(data)
+            return Node(key)
 
-        if data == root.data:
-            raise ValueError(f"Key={data} already present")
+        if key == root.data:
+            raise ValueError(f"Key={key} already present")
 
-        if data > root.data:
-            root.right = self._insert(data, root.right)
+        if key > root.data:
+            root.right = self._insert(key, root.right)
 
         else:
-            root.left = self._insert(data, root.left)
+            root.left = self._insert(key, root.left)
 
         # Up the recursion stack visiting nodes visited during traversal
         root.height = 1 + max(get_height(root.left), get_height(root.right))
@@ -113,19 +115,75 @@ class AVLTree:
 
         # RR or RL case
         if balance > 1:
-            if root.right.data > data:
+            if root.right.data > key:
                 root.right = right_rotate(root.right)  # Change RL to RR
             return left_rotate(root)
 
         # LL or LR Case
         if balance < -1:
-            if root.left.data < data:
+            if root.left.data < key:
                 root.left = left_rotate(root.left)  # Change LR to LL
             return right_rotate(root)
 
         # No balancing required
         return root
 
+    def _delete(self, root, key) -> Union[Node, None]:
+        if root is None:
+            raise KeyError("Key={key} not found")
+        if root.data == key:
+            if root.left is None and root.right is None:
+                return None
+            if root.left is None:
+                return root.right
+            if root.right is None:
+                return root.left
+            root.data = get_min_value(root.right)
+            root.right = self._delete(root.right, root.data)
+
+        elif root.data > key:
+            root.left = self._delete(root.left, key)
+        else:
+            root.right = self._delete(root.right, key)
+
+        # Up the recursion stack visiting nodes already visited during traversal
+        root.height = 1 + max(get_height(root.left), get_height(root.right))
+        balance = get_height(root.right) - get_height(root.left)
+
+        # RR or RL
+        if balance > 1:
+            if get_height(root.right.right) - get_height(root.right.left) < 0:  # Change RL to RR
+                root.right = right_rotate(root.right)
+            return left_rotate(root)
+
+        # LL or LR case
+        if balance < -1:
+            if get_height(root.left.right) - get_height(root.left.left) > 0:  # Change LR to LL
+                root.left = left_rotate(root.left)
+            return right_rotate(root)
+
+        # No balancing required
+        return root
+
+    def delete(self, key):
+        if self.root is None:
+            raise KeyError(f"Empty Tree has no key={key}")
+        self.root = self._delete(self.root, key)
+
 
 def get_height(node: Union[None, Node]) -> int:
     return 0 if not node else node.height
+
+
+def get_min_value(node) -> int:
+    if node.left is None:
+        return node.data
+    return get_min_value(node.left)
+
+
+if __name__ == "__main__":
+    a = AVLTree([9, 1, 0, -1, 5, 2, 6, 10, 11])
+    a.pre_order()
+    a.delete(10)
+    a.delete(11)
+    a.pre_order()

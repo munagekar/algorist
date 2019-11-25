@@ -16,3 +16,14 @@ def test_avl():
     assert a.root.left.left.data == 10
     assert a.root.left.right.data == 25
     assert a.root.right.right.data == 50
+
+    a = AVLTree([9, 1, 0, -1, 5, 2, 6, 10, 11])
+    a.delete(10)
+    a.delete(11)
+    assert a.root.data == 1
+    assert a.root.left.data == 0
+    assert a.root.left.left.data == -1
+    assert a.root.right.data == 5
+    assert a.root.right.left.data == 2
+    assert a.root.right.right.data == 9
+    assert a.root.right.right.left.data == 6
