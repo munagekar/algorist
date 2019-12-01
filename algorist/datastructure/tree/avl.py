@@ -165,7 +165,7 @@ class AVLTree:
         # No balancing required
         return root
 
-    def delete(self, key):
+    def delete(self, key: float):
         if self.root is None:
             raise KeyError(f"Empty Tree has no key={key}")
         self.root = self._delete(self.root, key)
@@ -179,11 +179,3 @@ def get_min_value(node) -> int:
     if node.left is None:
         return node.data
     return get_min_value(node.left)
-
-
-if __name__ == "__main__":
-    a = AVLTree([9, 1, 0, -1, 5, 2, 6, 10, 11])
-    a.pre_order()
-    a.delete(10)
-    a.delete(11)
-    a.pre_order()
