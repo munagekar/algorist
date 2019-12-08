@@ -1,5 +1,5 @@
 from enum import Enum
-from math import sqrt, atan2, pi, sin, cos, hypot
+from math import atan2, pi, sin, cos, hypot
 
 
 class Orientation(Enum):
@@ -16,13 +16,17 @@ class Point:
     def __eq__(self, other):
         if self.x == other.x and self.y == other.y:
             return True
-        return
+        return False
 
     def __repr__(self):
         return f"Point({self.x},{self.y})"
 
     def __abs__(self):
         return hypot(self.x, self.y)
+
+    def __hash__(self):
+        return hash(repr(self))
+
 
     def to_polar(self):
         r = abs(self)
@@ -45,6 +49,10 @@ def distance(p1: Point, p2: Point) -> float:
     diff_x = p1.x - p2.x
     diff_y = p1.y - p2.y
     return hypot(diff_x, diff_y)
+
+
+def distance2(p1: Point, p2: Point) -> float:
+    return (p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2
 
 
 class PolarPoint:
